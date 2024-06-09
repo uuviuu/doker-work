@@ -1,0 +1,95 @@
+version: '3'
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    volumes:
+      - ./hosts:/etc/nginx/conf.d
+      - ./www:/var/www
+      - ./logs:/var/log/nginx
+    ports:
+      - "80:80"
+      - "81:81"
+      - "443:443"
+
+  php:
+    build: php
+    container_name: php
+    volumes:
+      - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ./www:/var/www
+
+#  node:
+#    build: node
+#    container_name: node
+#    ports:
+#      - "8080:8080"
+#      - "8000:8000"
+#      - "3000:3000"
+#    stdin_open: true
+#    tty: true
+#    volumes:
+#      - ./app:/var/app
+
+#  mysql:
+#    image: mysql
+#    command: --default-authentication-plugin=mysql_native_password
+#    container_name: mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: mysql
+#    ports:
+#      - "3308:3306"
+#    volumes:
+#      - ./db/initdb/:/docker-entrypoint-initdb.d/
+#      - ./db/mysql:/var/lib/mysql
+#      - ./db/dumps:/dumps
+#      - ./logs:/var/log/mysql/
+
+  mariadb:
+    image: mariadb
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mariadb
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./db/initdb/:/docker-entrypoint-initdb.d/
+      - ./db/mysql:/var/lib/mysql
+      - ./db/dumps:/dumps
+      - ./logs:/var/log/mysql/
+
+#  postgres:
+#    image: postgres
+#    container_name: postgres
+#    environment:
+#      POSTGRES_DB: postgres
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#    volumes:
+#      - ./db/postregs:/var/lib/postgresql
+#      - ./db/dumps:/dumps
+#      - ./logs:/var/log/postgresql/
+#    ports:
+#      - "5433:5432"
+
+#  redis:
+#    image: redis
+#    container_name: redis
+#    ports:
+#      - "6379:6379"
+#    command: ["sh", "-c", "exec redis-server --requirepass \"redis\""]
+#
+#  meilisearch:
+#    image: getmeili/meilisearch
+#    container_name: meilisearch
+#    ports:
+#      - "7700:7700"
+#    volumes:
+#      - ./meilisearch:/meili_data/data.ms
+
+volumes:
+  db:
