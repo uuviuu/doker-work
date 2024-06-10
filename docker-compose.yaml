@@ -20,17 +20,18 @@ services:
       - ./php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./www:/var/www
 
-#  node:
-#    build: node
-#    container_name: node
-#    ports:
-#      - "8080:8080"
-#      - "8000:8000"
-#      - "3000:3000"
-#    stdin_open: true
-#    tty: true
-#    volumes:
-#      - ./app:/var/app
+  node:
+    build: node
+    container_name: node
+    ports:
+      - "8080:8080"
+      - "8000:8000"
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./app:/var/app
+      - ./www:/var/www
 
 #  mysql:
 #    image: mysql
@@ -76,12 +77,12 @@ services:
 #    ports:
 #      - "5433:5432"
 
-#  redis:
-#    image: redis
-#    container_name: redis
-#    ports:
-#      - "6379:6379"
-#    command: ["sh", "-c", "exec redis-server --requirepass \"redis\""]
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: ["sh", "-c", "exec redis-server --requirepass \"redis\""]
 #
 #  meilisearch:
 #    image: getmeili/meilisearch
