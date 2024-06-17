@@ -20,6 +20,14 @@ services:
       - ./php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./www:/var/www
 
+#  php8.2:
+#    build: php8.2
+#    container_name: php8.2
+#    volumes:
+#      - ./php8.2/php.ini:/usr/local/etc/php/conf.d/php.ini
+#      - ./php8.2/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+#      - ./www:/var/www
+
   node:
     build: node
     container_name: node
@@ -33,6 +41,7 @@ services:
       - ./app:/var/app
       - ./www:/var/www
 
+# В таком виде работает только на линуксе
 #  mysql:
 #    image: mysql
 #    command: --default-authentication-plugin=mysql_native_password

@@ -1,4 +1,6 @@
 /www/*
+!/www/example-app
+
 /hosts/*
 !/hosts/example.conf
 
