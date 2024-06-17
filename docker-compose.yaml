@@ -83,14 +83,22 @@ services:
     ports:
       - "6379:6379"
     command: ["sh", "-c", "exec redis-server --requirepass \"redis\""]
-#
-#  meilisearch:
-#    image: getmeili/meilisearch
-#    container_name: meilisearch
-#    ports:
-#      - "7700:7700"
-#    volumes:
-#      - ./meilisearch:/meili_data/data.ms
+
+  meilisearch:
+    image: getmeili/meilisearch
+    container_name: meilisearch
+    ports:
+      - "7700:7700"
+    volumes:
+      - ./meilisearch:/meili_data/data.ms
+      
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'
+    ports:
+      - "1025:1025"
+      - "8025:8025"
 
 volumes:
   db:
