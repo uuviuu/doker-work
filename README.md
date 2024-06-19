@@ -4,20 +4,18 @@
 
 ### Стек
 
-- Node 18.20.2
-- Yarn 1.22.19
-- Npm 10.3.0
+- Node 22
 
 ### Установка в репозитории проекта
 
 - Локальная сборка проекта:
   ```
-  yarn
-  yarn build
+  npm install
+  npm run build
   ```
 - Режим отладки:
   ```
-  yarn dev
+  npm run dev
   ```
 
 ## Бэкенд
