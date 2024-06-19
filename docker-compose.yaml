@@ -38,7 +38,6 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - ./app:/var/app
       - ./www:/var/www
 
 # В таком виде работает только на линуксе
