@@ -15,7 +15,7 @@ RUN export DOCKER_SCAN_SUGGEST=false
 
 USER node
 
-WORKDIR /var/www/zao
+WORKDIR /var/www
 
 EXPOSE 3000
 EXPOSE 8080
