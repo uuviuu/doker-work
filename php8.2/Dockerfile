@@ -1,14 +1,20 @@
 FROM php:8.2-fpm
 
 RUN apt update && apt-get -f install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libjpeg-dev \
+        libpng-dev \
         curl \
         wget \
         git \
         unzip \
         zip \
+        libfreetype6-dev \
+        libwebp-dev \
+        libgd-dev \
         libzip-dev \
         libxml2-dev \
-        libfreetype6-dev \
         libonig-dev \
         libicu-dev \
         libpq-dev \
@@ -19,14 +25,17 @@ RUN apt update && apt-get -f install -y \
         redis \
         mariadb-client \
     && pecl install redis \
-    && docker-php-ext-enable redis
+    && docker-php-ext-enable redis \
+    && docker-php-ext-install -j$(nproc) gd
 
 RUN set -eux; \
+    docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg; \
     docker-php-ext-configure zip; \
     docker-php-ext-install -j "$(nproc)" iconv \
         mbstring \
         intl \
         zip \
+        gd \
         sockets \
         mysqli \
         opcache \
