@@ -15,7 +15,6 @@ RUN apt update && apt install -y \
         libicu-dev \
         libpq-dev \
         libxpm-dev \
-        libwebp-dev \
         libvpx-dev \
         libzip-dev \
         libyaml-dev \
@@ -65,6 +64,6 @@ RUN groupadd --gid 1000 user \
 
 USER user
 
-WORKDIR /var/www
+WORKDIR /var/www/smart-plan
 
 CMD ["php-fpm"]
