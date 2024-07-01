@@ -10,6 +10,9 @@ services:
     ports:
       - "80:80"
       - "81:81"
+      - "82:82"
+      - "83:83"
+      - "84:84"
       - "443:443"
 
   php:
@@ -20,13 +23,13 @@ services:
       - ./php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./www:/var/www
 
-#  php8.2:
-#    build: php8.2
-#    container_name: php8.2
-#    volumes:
-#      - ./php8.2/php.ini:/usr/local/etc/php/conf.d/php.ini
-#      - ./php8.2/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
-#      - ./www:/var/www
+  php8:
+    build: php8
+    container_name: php8
+    volumes:
+      - ./php8/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./php8/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ./www:/var/www
 
   node:
     build: node
@@ -40,7 +43,6 @@ services:
     volumes:
       - ./www:/var/www
 
-# В таком виде работает только на линуксе
 #  mysql:
 #    image: mysql
 #    command: --default-authentication-plugin=mysql_native_password
@@ -89,17 +91,23 @@ services:
     image: redis
     container_name: redis
     ports:
-      - "6379:6379"
+      - "6380:6379"
     command: ["sh", "-c", "exec redis-server --requirepass \"redis\""]
 
   meilisearch:
-    image: getmeili/meilisearch
     container_name: meilisearch
+    image: getmeili/meilisearch:v0.25.2
+    environment:
+      - http_proxy
+      - https_proxy
+      - MEILI_MASTER_KEY=masterKey
+      - MEILI_NO_ANALYTICS=${MEILI_NO_ANALYTICS:-true}
+      - MEILI_ENV=${MEILI_ENV:-development}
+      - MEILI_LOG_LEVEL
+      - MEILI_DB_PATH=${MEILI_DB_PATH:-/data.ms}
     ports:
-      - "7700:7700"
-    volumes:
-      - ./meilisearch:/meili_data/data.ms
-      
+      - "7777:7700"
+
   mailhog:
     image: mailhog/mailhog
     logging:
