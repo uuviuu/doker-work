@@ -96,7 +96,7 @@ services:
 
   meilisearch:
     container_name: meilisearch
-    image: getmeili/meilisearch:v0.25.2
+    image: getmeili/meilisearch:v1.10
     environment:
       - http_proxy
       - https_proxy
