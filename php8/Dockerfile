@@ -29,7 +29,7 @@ RUN apt update && apt-get -f install -y \
     && docker-php-ext-install -j$(nproc) gd
 
 RUN set -eux; \
-    docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg; \
+    docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-xpm --with-webp; \
     docker-php-ext-configure zip; \
     docker-php-ext-install -j "$(nproc)" iconv \
         mbstring \

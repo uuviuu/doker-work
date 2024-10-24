@@ -1,7 +1,6 @@
 FROM php:8.3-fpm
 
 RUN apt update && apt install -y \
-        locales \
         curl \
         wget \
         git \
@@ -23,8 +22,6 @@ RUN apt update && apt install -y \
         vim \
         redis \
         mariadb-client \
-        jpegoptim optipng pngquant gifsicle \
-        build-essential \
     && pecl install yaml \
     && pecl install xdebug \
     && pecl install redis \
@@ -50,7 +47,6 @@ RUN set -eux; \
         opcache \
         pdo_mysql \
         pcntl \
-        bcmath \
         exif
 
 RUN chsh -s /usr/bin/fish
@@ -69,7 +65,5 @@ RUN groupadd --gid 1000 user \
 USER user
 
 WORKDIR /var/www
-
-EXPOSE 80
 
 CMD ["php-fpm"]
