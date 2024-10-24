@@ -68,7 +68,7 @@ RUN groupadd --gid 1000 user \
 
 USER user
 
-WORKDIR /var/www/smart-plan
+WORKDIR /var/www
 
 EXPOSE 80
 
