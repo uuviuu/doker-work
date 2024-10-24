@@ -13,7 +13,11 @@ services:
       - "82:82"
       - "83:83"
       - "84:84"
+      - "85:85"
+      - "86:86"
       - "443:443"
+    networks:
+      - test
 
   php:
     build: php
@@ -22,6 +26,8 @@ services:
       - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./www:/var/www
+    networks:
+      - test
 
   php8:
     build: php8
@@ -30,6 +36,8 @@ services:
       - ./php8/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./php8/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./www:/var/www
+    networks:
+      - test
 
   node:
     build: node
@@ -42,21 +50,25 @@ services:
     tty: true
     volumes:
       - ./www:/var/www
+    networks:
+      - test
 
-#  mysql:
-#    image: mysql
-#    command: --default-authentication-plugin=mysql_native_password
-#    container_name: mysql
-#    environment:
-#      MYSQL_ROOT_PASSWORD: root
-#      MYSQL_DATABASE: mysql
-#    ports:
-#      - "3308:3306"
-#    volumes:
-#      - ./db/initdb/:/docker-entrypoint-initdb.d/
-#      - ./db/mysql:/var/lib/mysql
-#      - ./db/dumps:/dumps
-#      - ./logs:/var/log/mysql/
+  #  mysql:
+  #    image: mysql
+  #    command: --default-authentication-plugin=mysql_native_password
+  #    container_name: mysql
+  #    environment:
+  #      MYSQL_ROOT_PASSWORD: root
+  #      MYSQL_DATABASE: mysql
+  #    ports:
+  #      - "3308:3306"
+  #    volumes:
+  #      - ./db/initdb/:/docker-entrypoint-initdb.d/
+  #      - ./db/mysql:/var/lib/mysql
+  #      - ./db/dumps:/dumps
+  #      - ./logs:/var/log/mysql/
+  #    networks:
+  #      - test
 
   mariadb:
     image: mariadb
@@ -72,6 +84,8 @@ services:
       - ./db/mysql:/var/lib/mysql
       - ./db/dumps:/dumps
       - ./logs:/var/log/mysql/
+    networks:
+      - test
 
 #  postgres:
 #    image: postgres
@@ -86,6 +100,8 @@ services:
 #      - ./logs:/var/log/postgresql/
 #    ports:
 #      - "5433:5432"
+#    networks:
+#      - test
 
   redis:
     image: redis
@@ -93,6 +109,8 @@ services:
     ports:
       - "6380:6379"
     command: ["sh", "-c", "exec redis-server --requirepass \"redis\""]
+    networks:
+      - test
 
   meilisearch:
     container_name: meilisearch
@@ -107,6 +125,8 @@ services:
       - MEILI_DB_PATH=${MEILI_DB_PATH:-/data.ms}
     ports:
       - "7777:7700"
+    networks:
+      - test
 
   mailhog:
     image: mailhog/mailhog
@@ -115,6 +135,12 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
+    networks:
+      - test
 
 volumes:
   db:
+
+networks:
+  test:
+    driver: bridge
