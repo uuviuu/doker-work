@@ -25,6 +25,7 @@ RUN apt update && apt-get -f install -y \
         redis \
         mariadb-client \
     && pecl install redis \
+    && docker-php-ext-install ftp \
     && docker-php-ext-enable redis \
     && docker-php-ext-install -j$(nproc) gd
 

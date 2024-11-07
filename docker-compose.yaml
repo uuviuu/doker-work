@@ -43,6 +43,7 @@ services:
     container_name: node
     ports:
       - "8080:8080"
+      - "6001:6001"
       - "8000:8000"
       - "3000:3000"
     stdin_open: true
